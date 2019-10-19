@@ -4,7 +4,8 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/medeiros/pwdmanager)](https://img.shields.io/github/languages/code-size/medeiros/pwdmanager)
 [![License](https://img.shields.io/github/license/medeiros/pwdmanager)](https://img.shields.io/github/license/medeiros/pwdmanager)
 
-Password management tool in Java Web/Spring/Redis/Vue.js/DDD/TDD.
+Password management tool, using Java Web, Spring, Redis, Vue.js, DDD and
+TDD technologies.
 
 ## Installation
 
