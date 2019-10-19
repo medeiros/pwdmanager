@@ -37,7 +37,7 @@ Some important design choices are defined in the table below:
 |Category|Topic|Description|References
 |---|---|---|---|
 |Architecture & Design|DDD layered architecture|Adopted as a way decouple the domain problem (transactions, accounts and its business rules) from different levels of technical elements (json parsing, input redirection), so that the domain can evolve regardless of technical layers and those can be changed later without any impact to the domain. According to DDD layer theory, there are four layers (presentation, application, domain and infrastructure) and, as dependency rule, each layer cannot access the above layer. |[archfirst]|
-|Architecture & Design|Web application|A web application that decouples front-and and back-end. Using Vue.js in the front and Spring (Boot+MVC) in the backend.|[spring-bot] [spring-mvc] [vue.js]|
+|Architecture & Design|Web application|A web application that decouples front-and and back-end. Using Vue.js in the front and Spring (Boot+MVC) in the backend.|[spring-boot] [spring-mvc] [vue.js]|
 |Architecture & Design|Key-Value NoSQL database|Using Redis as storage technology (and Jedis as Java client). The key-value model seems a good fit for password management data.|[redis] [jedis] [spring-data-redis]|
 |Code best practices|Reducing boilerplate code|Using *lombok* library as a way to remove boilerplate code in Java. Lombok can generate getters, setters, builders and others, during compile-time, based on annotations.|[lombok]|
 |Code best practices|TDD|A way to design and build classes that do just the necessary and nothing more.|[tdd]|
