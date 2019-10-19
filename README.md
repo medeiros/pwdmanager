@@ -1,6 +1,6 @@
 # Pwdmanager
 
-[![TravisCI](https://travis-ci.com/medeiros/pwdmanager.svg?branch=master)](https://travis-ci.com/medeiros/pwdmanager)
+[![TravisCI](https://travis-ci.org/medeiros/pwdmanager.svg?branch=master)](https://travis-ci.com/medeiros/pwdmanager)
 [![Code Size](https://img.shields.io/github/languages/code-size/medeiros/pwdmanager)](https://img.shields.io/github/languages/code-size/medeiros/pwdmanager)
 [![License](https://img.shields.io/github/license/medeiros/pwdmanager)](https://img.shields.io/github/license/medeiros/pwdmanager)
 
