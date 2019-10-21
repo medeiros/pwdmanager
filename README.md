@@ -39,9 +39,10 @@ Some important design choices are defined in the table below:
 |---|---|---|---|
 |Architecture & Design|DDD layered architecture|Adopted as a way decouple the domain problem (transactions, accounts and its business rules) from different levels of technical elements (json parsing, input redirection), so that the domain can evolve regardless of technical layers and those can be changed later without any impact to the domain. According to DDD layer theory, there are four layers (presentation, application, domain and infrastructure) and, as dependency rule, each layer cannot access the above layer. |[archfirst]|
 |Architecture & Design|Web application|A web application that decouples front-and and back-end. Using Vue.js in the front and Spring (Boot+MVC) in the backend.|[spring-boot] [spring-mvc] [vue.js]|
-|Architecture & Design|Key-Value NoSQL database|Using Redis as storage technology (and Jedis as Java client). The key-value model seems a good fit for password management data.|[redis] [jedis] [spring-data-redis]|
+|Architecture & Design|Key-Value NoSQL database|Using Redis as storage technology (and Jedis as Java client). The key-value model seems a good fit for password management data.|[redis] [jedis] [spring-data-redis] [baeldung-spring-redis]|
 |Code best practices|Reducing boilerplate code|Using *lombok* library as a way to remove boilerplate code in Java. Lombok can generate getters, setters, builders and others, during compile-time, based on annotations.|[lombok]|
 |Code best practices|TDD|A way to design and build classes that do just the necessary and nothing more.|[tdd]|
+|Code best practices|Integration tests|It's a good practice to test code altogether with Redis in an embedded environment designed just for tests. This way, the code is constructed and validated before put into production.|[emb-redis-server]|
 |VCS|Git Branching Model|A branch model is an organized way to structure a git project for further collaboration.|[git-branching]|
 |VCS|Git Commit|Adopting best practices in Git commit messages.|[chris-beams]|
 
@@ -54,8 +55,10 @@ Some important design choices are defined in the table below:
 [archfirst]: https://archfirst.org/domain-driven-design-6-layered-architecture/
 [spring-boot]: https://spring.io/projects/spring-boot
 [spring-data-redis]: https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#reference
+[baeldung-spring-redis]: https://www.baeldung.com/spring-data-redis-tutorial
 [spring-mvc]: https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html
 [vue.js]: https://vuejs.org/
+[emb-redis-server]: https://github.com/kstyrc/embedded-redis
 
 
 #### Logical structure: layers
