@@ -1,6 +1,8 @@
 package com.arneam.pwdmanager.domain;
 
-public interface Password {
+import java.io.Serializable;
+
+public interface Password extends Serializable {
 
   String password();
 
