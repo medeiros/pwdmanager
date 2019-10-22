@@ -1,39 +1,37 @@
 package com.arneam.pwdmanager.infrastructure.queue;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
-import com.arneam.pwdmanager.RedisConfig;
 import java.util.UUID;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import redis.embedded.RedisServer;
 import redis.embedded.RedisServerBuilder;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = RedisConfig.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-public class RedisMessageListenerIT {
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+class RedisMessageListenerIT {
 
   private static RedisServer redisServer;
 
   @Autowired
   private RedisMessagePublisher redisMessagePublisher;
 
-  @BeforeClass
+  @BeforeAll
   public static void startRedisServer() {
-    redisServer = new RedisServerBuilder().setting("maxmemory 256M").build();
+    redisServer =
+        new RedisServerBuilder().setting("maxmemory 256M").setting("timeout 0").setting("tcp" +
+            "-keepalive 3000").setting("databases 16").build();
     redisServer.start();
   }
 
-  @AfterClass
+  @AfterAll
   public static void stopRedisServer() {
     redisServer.stop();
   }

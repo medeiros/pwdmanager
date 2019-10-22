@@ -15,6 +15,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 @Configuration
 @ComponentScan("com.arneam.pwdmanager")
@@ -31,6 +32,7 @@ public class RedisConfig {
   public RedisTemplate<String, Object> redisTemplate() {
     RedisTemplate<String, Object> template = new RedisTemplate<>();
     template.setConnectionFactory(jedisConnectionFactory());
+    template.setValueSerializer(new GenericToStringSerializer<>(Object.class));
     return template;
   }
 
