@@ -3,41 +3,29 @@ package com.arneam.pwdmanager.infrastructure.queue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
+import com.arneam.pwdmanager.IntegrationTestBase;
 import java.util.UUID;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import redis.embedded.RedisServer;
-import redis.embedded.RedisServerBuilder;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class RedisMessageListenerIT {
-
-  private static RedisServer redisServer;
+class RedisMessageListenerIT extends IntegrationTestBase {
 
   @Autowired
   private RedisMessagePublisher redisMessagePublisher;
 
-  @BeforeAll
-  public static void startRedisServer() {
-    redisServer =
-        new RedisServerBuilder().setting("maxmemory 256M").setting("timeout 0").setting("tcp" +
-            "-keepalive 3000").setting("databases 16").build();
-    redisServer.start();
-  }
-
-  @AfterAll
-  public static void stopRedisServer() {
-    redisServer.stop();
+  @BeforeEach
+  void init() {
+    startRedisIfInactive();
   }
 
   @Test
-  public void shouldTestOnMessage() throws InterruptedException {
+  void shouldTestOnMessage() throws InterruptedException {
     String message = "Message: " + UUID.randomUUID().toString();
     redisMessagePublisher.publish(message);
     Thread.sleep(1000);
