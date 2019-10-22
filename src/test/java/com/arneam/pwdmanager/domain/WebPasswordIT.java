@@ -1,11 +1,13 @@
 package com.arneam.pwdmanager.domain;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 import com.arneam.pwdmanager.RedisConfig;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,7 @@ public class WebPasswordIT {
 
   @Autowired
   private WebPasswordRepository webPasswordRepository;
+  private WebPassword webPasswordGmail;
 
   @BeforeClass
   public static void startRedisServer() {
@@ -37,14 +40,49 @@ public class WebPasswordIT {
     redisServer.stop();
   }
 
-  @Test
-  public void shouldSaveWebPassword() {
-    final WebPassword webPassword =
+  @Before
+  public void init() {
+    this.webPasswordGmail =
         WebPassword.builder().id("gmail").url("gmail.com").username("jose").password("123safe")
             .build();
-    webPasswordRepository.save(webPassword);
+  }
+
+  @Test
+  public void shouldSaveAndRetrieveRecord() {
+    webPasswordRepository.save(webPasswordGmail);
     WebPassword retrievedWebPassword = webPasswordRepository.findById("gmail").get();
-    assertThat(webPassword.url(), is(equalTo(retrievedWebPassword.url())));
+    assertThat(webPasswordGmail.url(), is(equalTo(retrievedWebPassword.url())));
+  }
+
+  @Test
+  public void shouldUpdateAndRetrieveRecord() {
+    webPasswordRepository.save(webPasswordGmail);
+    webPasswordGmail.password("safe123");
+    webPasswordRepository.save(webPasswordGmail);
+    WebPassword retrievedWebPassword = webPasswordRepository.findById("gmail").get();
+    assertThat(webPasswordGmail.password(), is(equalTo(retrievedWebPassword.password())));
+  }
+
+  @Test
+  public void shouldSaveAndRetreiveAllRecords() {
+    final WebPassword webPasswordTwitter =
+        WebPassword.builder().id("twitter").url("twitter.com").username("jose").password("aaasafe")
+            .build();
+    webPasswordRepository.save(webPasswordGmail);
+    webPasswordRepository.save(webPasswordTwitter);
+
+    List<WebPassword> passwords = new ArrayList<>();
+    webPasswordRepository.findAll().forEach(passwords::add);
+
+    assertThat(passwords.size(), is(equalTo(2)));
+  }
+
+  @Test
+  public void shouldDeleteAndNotRetrieveDeletedRecord() {
+    webPasswordRepository.save(webPasswordGmail);
+    webPasswordRepository.deleteById("gmail");
+    final WebPassword password = webPasswordRepository.findById("gmail").orElse(null);
+    assertThat(password, is(nullValue()));
   }
 
 }
