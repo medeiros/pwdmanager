@@ -28,14 +28,14 @@ class WebPasswordIT {
   }
 
   @Test
-  public void shouldSaveAndRetrieveRecord() {
+  void shouldSaveAndRetrieveRecord() {
     webPasswordRepository.save(webPasswordGmail);
     WebPassword retrievedWebPassword = webPasswordRepository.findById("gmail").get();
     assertThat(webPasswordGmail.url(), is(equalTo(retrievedWebPassword.url())));
   }
 
   @Test
-  public void shouldUpdateAndRetrieveRecord() {
+  void shouldUpdateAndRetrieveRecord() {
     webPasswordRepository.save(webPasswordGmail);
     webPasswordGmail.password("safe123");
     webPasswordRepository.save(webPasswordGmail);
@@ -44,7 +44,7 @@ class WebPasswordIT {
   }
 
   @Test
-  public void shouldSaveAndRetrieveAllRecords() {
+  void shouldSaveAndRetrieveAllRecords() {
     final WebPassword webPasswordTwitter =
         WebPassword.builder().id("twitter").url("twitter.com").username("jose").password("aaasafe")
             .build();
@@ -58,7 +58,7 @@ class WebPasswordIT {
   }
 
   @Test
-  public void shouldDeleteAndNotRetrieveDeletedRecord() {
+  void shouldDeleteAndNotRetrieveDeletedRecord() {
     webPasswordRepository.save(webPasswordGmail);
     webPasswordRepository.deleteById("gmail");
     final WebPassword password = webPasswordRepository.findById("gmail").orElse(null);
