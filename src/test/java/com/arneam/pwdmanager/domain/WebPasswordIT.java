@@ -3,7 +3,6 @@ package com.arneam.pwdmanager.domain;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import com.arneam.pwdmanager.IntegrationTestBase;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,16 +14,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-class WebPasswordIT extends IntegrationTestBase {
+class WebPasswordIT {
 
   @Autowired
   private WebPasswordRepository webPasswordRepository;
   private WebPassword webPasswordGmail;
 
   @BeforeEach
-  public void init() {
-    startRedisIfInactive();
-
+  void init() {
     this.webPasswordGmail =
         WebPassword.builder().id("gmail").url("gmail.com").username("jose").password("123safe")
             .build();
