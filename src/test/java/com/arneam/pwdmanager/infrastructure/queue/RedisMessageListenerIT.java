@@ -22,7 +22,7 @@ class RedisMessageListenerIT {
     String message = "Message: " + UUID.randomUUID().toString();
     redisMessagePublisher.publish(message);
     Thread.sleep(1000);
-    assertThat(RedisMessageSubscriber.messageList.get(0), containsString(message));
+    assertThat(RedisMessageSubscriber.messageList().get(0), containsString(message));
   }
 
 }
