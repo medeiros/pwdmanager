@@ -10,6 +10,7 @@ public class RedisMessagePublisher implements MessagePublisher {
 
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
+
   @Autowired
   private ChannelTopic topic;
 
