@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(properties = "redis.port=6370")
 @AutoConfigureMockMvc
 class WebPasswordControllerIT {
 
@@ -54,9 +54,8 @@ class WebPasswordControllerIT {
 
     String json = mapper.writeValueAsString(dto);
 
-    mockMvc.perform(
-        post("/api/webpasswords").contentType(MediaType.APPLICATION_JSON).content(json)
-            .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
+    mockMvc.perform(post("/api/webpasswords").contentType(MediaType.APPLICATION_JSON).content(json)
+        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
         .andExpect(MockMvcResultMatchers.content().string(CoreMatchers.containsString("gmail")));
   }
 

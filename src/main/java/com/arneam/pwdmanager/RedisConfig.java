@@ -3,12 +3,13 @@ package com.arneam.pwdmanager;
 import com.arneam.pwdmanager.infrastructure.queue.MessagePublisher;
 import com.arneam.pwdmanager.infrastructure.queue.RedisMessagePublisher;
 import com.arneam.pwdmanager.infrastructure.queue.RedisMessageSubscriber;
-import java.nio.channels.Channel;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
@@ -23,9 +24,14 @@ import org.springframework.data.redis.serializer.GenericToStringSerializer;
 @PropertySource("classpath:application.properties")
 public class RedisConfig {
 
+  @Value("${redis.port}")
+  private int redisPort;
+
   @Bean
   JedisConnectionFactory jedisConnectionFactory() {
-    return new JedisConnectionFactory();
+    RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+    config.setPort(redisPort);
+    return new JedisConnectionFactory(config);
   }
 
   @Bean
