@@ -15,7 +15,7 @@ public class WebPasswordController {
   @Autowired
   private WebPasswordRepository webPasswordRepository;
 
-  @GetMapping("/")
+  @GetMapping
   public Iterable<WebPassword> retrieveAllWebAccounts() {
     return webPasswordRepository.findAll();
   }
