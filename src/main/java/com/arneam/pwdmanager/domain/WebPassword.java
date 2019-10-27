@@ -1,21 +1,29 @@
 package com.arneam.pwdmanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.redis.core.RedisHash;
 
 @Builder
 @Getter
-@Setter
 @Accessors(fluent = true)
 @RedisHash("WebPassword")
-public class WebPassword implements Password {
+@JsonDeserialize(builder = WebPassword.WebPasswordBuilder.class)
+public final class WebPassword implements Password {
 
+  @JsonProperty
   private String id;
+
+  @JsonProperty
   private String url;
+
+  @JsonProperty
   private String username;
+
+  @JsonProperty
   private String password;
 
 }

@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(properties = {"redis.port=6371" })
+@SpringBootTest(properties = {"redis.port=6371"})
 class WebPasswordIT {
 
   @Autowired
@@ -37,10 +37,11 @@ class WebPasswordIT {
   @Test
   void shouldUpdateAndRetrieveRecord() {
     webPasswordRepository.save(webPasswordGmail);
-    webPasswordGmail.password("safe123");
-    webPasswordRepository.save(webPasswordGmail);
+    WebPassword newPwd = WebPassword.builder().id(webPasswordGmail.id()).url(webPasswordGmail.url())
+        .username(webPasswordGmail.username()).password("safe123").build();
+    webPasswordRepository.save(newPwd);
     WebPassword retrievedWebPassword = webPasswordRepository.findById("gmail").get();
-    assertThat(webPasswordGmail.password(), is(equalTo(retrievedWebPassword.password())));
+    assertThat(newPwd.password(), is(equalTo(retrievedWebPassword.password())));
   }
 
   @Test

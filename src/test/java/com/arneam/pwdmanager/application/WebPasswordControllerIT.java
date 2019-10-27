@@ -3,12 +3,10 @@ package com.arneam.pwdmanager.application;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.arneam.pwdmanager.domain.WebPassword;
-import com.arneam.pwdmanager.domain.WebPasswordDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
@@ -46,26 +44,11 @@ class WebPasswordControllerIT {
         WebPassword.builder().id("gmail").url("gmail.com").username("jose").password("123safe")
             .build();
 
-    WebPasswordDTO dto = new WebPasswordDTO();
-    dto.setId(webPasswordGmail.id());
-    dto.setPassword(webPasswordGmail.password());
-    dto.setUrl(webPasswordGmail.url());
-    dto.setUsername(webPasswordGmail.username());
-
-    String json = mapper.writeValueAsString(dto);
+    String json = mapper.writeValueAsString(webPasswordGmail);
 
     mockMvc.perform(post("/api/webpasswords").contentType(MediaType.APPLICATION_JSON).content(json)
         .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
         .andExpect(MockMvcResultMatchers.content().string(CoreMatchers.containsString("gmail")));
-  }
-
-  @Test
-  void shouldCreateWebPasswordService() throws Exception {
-    String endpoint = "/api/webpasswords/";
-    String expectedText = "all web password accounts";
-
-    mockMvc.perform(get(endpoint)).andExpect(status().isOk()).andExpect(
-        MockMvcResultMatchers.content().string(CoreMatchers.containsString(expectedText)));
   }
 
 }
