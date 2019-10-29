@@ -9,15 +9,35 @@ TDD technologies.
 
 ## Installation
 
+Redis must be installed. If not yet, it can be done in Arch Linux with:
+
+    $ sudo pacman -S redis
+
+This is a Maven application, that can be installed with:
+
     mvn clean package
 
 ## Usage
 
-TBD
+This is a simple web application. It's main endpoint can be just
+called in a Web browser, as explained in the 'Run' section, below.
 
 #### Run
 
-TBD
+First of all, Redis server must be up and running. This can be done
+in Arch Linux by running the following:
+
+    $ redis-server
+
+After that, the application must be started with a single jar call:
+
+    $ java -jar <jarfile>
+
+This will execute embedded Tomcat, that will create a web app in port
+8080. So, the application can be called by any Web browser in the
+following URL:
+
+    http://localhost:8080/
 
 ##### Run tests
 
