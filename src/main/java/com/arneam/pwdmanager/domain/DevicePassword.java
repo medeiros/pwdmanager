@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class DevicePassword implements Password {
 
+  private String id;
   private String device;
   private String username;
   private String password;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public interface Password extends Serializable {
 
+  String id();
+
   String password();
 
 }

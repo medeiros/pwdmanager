@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class CardPassword implements Password {
 
+  private String id;
   private String cardName;
   private String number;
   private String password;
