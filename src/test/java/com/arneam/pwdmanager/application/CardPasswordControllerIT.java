@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.arneam.pwdmanager.domain.CardPassword;
 import com.arneam.pwdmanager.domain.CardPasswordRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -19,19 +18,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "redis.port=6370")
 @AutoConfigureMockMvc
-public class CardPasswordControllerIT {
-
-  @Autowired
-  private MockMvc mockMvc;
-
-  @Autowired
-  private ObjectMapper mapper;
+public class CardPasswordControllerIT extends TestPasswordController {
 
   @Autowired
   private CardPasswordController cardPasswordController;
