@@ -60,9 +60,9 @@ abstract class TestPasswordController<T> {
     mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_JSON).content(json)
         .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
         .andExpect(MockMvcResultMatchers.content().string(matcher));
-
   }
 
+  @Test
   abstract void shouldCreateAccount() throws Exception;
 
 }
