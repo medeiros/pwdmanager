@@ -34,12 +34,11 @@ abstract class TestPasswordController<T> {
   ObjectMapper mapper;
 
   CrudRepository<T, String> repository;
-  PasswordController passwordController;
+  PasswordController controller;
 
-  TestPasswordController(CrudRepository<T, String> repository,
-      PasswordController passwordController) {
+  TestPasswordController(CrudRepository<T, String> repository, PasswordController controller) {
     this.repository = repository;
-    this.passwordController = passwordController;
+    this.controller = controller;
   }
 
   @AfterEach
@@ -49,7 +48,7 @@ abstract class TestPasswordController<T> {
 
   @Test
   void shouldValidateContextLoading() {
-    assertThat(passwordController, is(notNullValue()));
+    assertThat(controller, is(notNullValue()));
   }
 
   String jsonOf(Password password) throws JsonProcessingException {
