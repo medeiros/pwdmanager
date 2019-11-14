@@ -63,9 +63,9 @@ class CardPasswordControllerIT extends TestPasswordController {
   }
 
   @Test
+  @Override
   void shouldGetNotFoundExceptionWhenAccountIsNotFound() throws Exception {
-    mockMvc.perform(get("/api/cardpasswords/xxx")).andExpect(status().isNotFound())
-        .andExpect(content().string(CoreMatchers.containsString("Account 'xxx' not found.")));
+    mockGetNotFoundUrl("/api/cardpasswords/xxx");
   }
 
   @Test

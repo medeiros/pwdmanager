@@ -3,12 +3,15 @@ package com.arneam.pwdmanager.application;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.arneam.pwdmanager.domain.Password;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +64,16 @@ abstract class TestPasswordController<T> {
         .andExpect(MockMvcResultMatchers.content().string(matcher));
   }
 
+  void mockGetNotFoundUrl(String endpoint) throws Exception {
+    mockMvc.perform(get(endpoint)).andExpect(status().isNotFound()).andExpect(content().string(
+        CoreMatchers.containsString(
+            "Account '" + endpoint.substring(endpoint.lastIndexOf("/") + 1) + "' not found.")));
+  }
+
   @Test
   abstract void shouldCreateAccount() throws Exception;
+
+  @Test
+  abstract void shouldGetNotFoundExceptionWhenAccountIsNotFound() throws Exception;
 
 }
