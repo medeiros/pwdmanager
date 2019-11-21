@@ -16,8 +16,6 @@ public abstract class PasswordController<E extends Password, R extends CrudRepos
     this.repo = repo;
   }
 
-//  abstract R repo;
-
   @GetMapping
   public Iterable<E> retrieveAllAccounts() {
     return repo.findAll();
