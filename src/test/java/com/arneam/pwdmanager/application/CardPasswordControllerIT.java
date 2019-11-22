@@ -8,17 +8,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.arneam.pwdmanager.domain.CardPassword;
 import com.arneam.pwdmanager.domain.CardPasswordRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 class CardPasswordControllerIT extends TestPasswordController {
 
   @Autowired
-  CardPasswordControllerIT(CardPasswordRepository repository, CardPasswordController controller) {
-    super(repository, controller);
+  CardPasswordControllerIT(CardPasswordRepository repository, CardPasswordController controller,
+      MockMvc mockMvc, ObjectMapper mapper) {
+    super(repository, controller, mockMvc, mapper);
   }
 
   @Test

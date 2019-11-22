@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.arneam.pwdmanager.domain.Password;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
@@ -28,21 +29,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "redis.port=6370")
 @AutoConfigureMockMvc
+@AllArgsConstructor
 abstract class TestPasswordController<T> {
-
-  @Autowired
-  MockMvc mockMvc;
-
-  @Autowired
-  ObjectMapper mapper;
 
   CrudRepository<T, String> repository;
   PasswordController controller;
-
-  TestPasswordController(CrudRepository<T, String> repository, PasswordController controller) {
-    this.repository = repository;
-    this.controller = controller;
-  }
+  MockMvc mockMvc;
+  ObjectMapper mapper;
 
   @AfterEach
   void finalizeIt() {
